@@ -49,13 +49,19 @@ public class TransactionController {
         Customer cus = customerList.get(random.nextInt(customerList.size()));
         entity.setCustomerId(cus);
         Stock stock = stockService.findById(item.getId());
-        stock.setQuantity(stock.getQuantity()-1);
-        stockService.save(stock);
+        System.out.println(stock.getQuantity());
+        if(stock.getQuantity()<=0){
+            return ResponseMessage.error(403,"Stock Empty");
+        } else {
+            stock.setQuantity(stock.getQuantity() - 1);
+            stockService.save(stock);
+        }
         entity.setStockId(stock);
         entity.setItemId(stock.getItem());
 
         entity = transactionService.save(entity);
         TransactionResponse data = modelMapper.map(entity, TransactionResponse.class);
+        data.setName(entity.getCustomerId().getName());
         return ResponseMessage.success(data);
     }
 
