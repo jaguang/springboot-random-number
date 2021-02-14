@@ -22,3 +22,18 @@ INSERT INTO stock (item_id, quantity, created_date, total_price) VALUES (7, 50, 
 INSERT INTO stock (item_id, quantity, created_date, total_price) VALUES (8, 22, '2021-01-14', ((SELECT (item.price * 22) FROM item WHERE item.id = 8)));
 INSERT INTO stock (item_id, quantity, created_date, total_price) VALUES (9, 7, '2021-01-14', ((SELECT (item.price * 7) FROM item WHERE item.id = 9)));
 INSERT INTO stock (item_id, quantity, created_date, total_price) VALUES (10, 34, '2021-01-14', ((SELECT (item.price * 34) FROM item WHERE item.id = 10)));
+
+
+INSERT INTO customer (id, name, address) VALUES (1, 'gemoy', 'ragunan');
+INSERT INTO customer (id, name, address) VALUES (2, 'arif', 'jakarta');
+INSERT INTO customer (id, name, address) VALUES (3, 'rifki', 'bekasi');
+INSERT INTO customer (id, name, address) VALUES (4, 'naufal', 'jakarta selatan');
+INSERT INTO customer (id, name, address) VALUES (5, 'dio', 'mampang');
+INSERT INTO customer (id, name, address) VALUES (6, 'dika', 'jakarta barat');
+INSERT INTO customer (id, name, address) VALUES (7, 'salaman', 'ragunan');
+INSERT INTO customer (id, name, address) VALUES (8, 'irfa', 'jakarta selatan');
+INSERT INTO customer (id, name, address) VALUES (9, 'wisa', 'bekasi');
+INSERT INTO customer (id, name, address) VALUES (10, 'ari', 'bsd');
+INSERT INTO customer (id, name, address) VALUES (11, 'mario', 'bsd');
+INSERT INTO customer (id, name, address) VALUES (12, 'susi', 'banten');
+

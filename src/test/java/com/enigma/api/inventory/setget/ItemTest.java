@@ -181,18 +181,15 @@ public class ItemTest {
         expected.setStockId(stock);
         expected.setId(1);
         expected.setItemId(item);
-        expected.setName("a");
 
         Transaction actual = new Transaction();
         actual.setItemId(item);
         actual.setId(1);
         actual.setStockId(stock);
-        actual.setName("a");
 
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getItemId(), actual.getItemId());
         assertEquals(expected.getStockId(),actual.getStockId());
-        assertEquals(expected.getName(),actual.getName());
 
         assertNotNull(expected.toString());
     }

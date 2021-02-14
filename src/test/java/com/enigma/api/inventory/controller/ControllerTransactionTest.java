@@ -138,15 +138,13 @@ public class ControllerTransactionTest {
         mvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.code", is(HttpStatus.OK.value())))
-                .andExpect(jsonPath("$.data.name", is(entity.getName())));
+                .andExpect(jsonPath("$.code", is(HttpStatus.OK.value())));
     }
 
     @Test
     public void allShouldReturnArray() throws Exception {
         Transaction entity = new Transaction();
         entity.setId(1);
-        entity.setName("orlan");
 
         List<Transaction> listTransaction = new ArrayList<>();
         listTransaction.add(entity);

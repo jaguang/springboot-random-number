@@ -1,11 +1,9 @@
 package com.enigma.api.inventory.controllers;
 
-import com.enigma.api.inventory.entities.Item;
-import com.enigma.api.inventory.entities.Stock;
-import com.enigma.api.inventory.entities.Transaction;
-import com.enigma.api.inventory.entities.Unit;
+import com.enigma.api.inventory.entities.*;
 import com.enigma.api.inventory.exceptions.EntityNotFoundException;
 import com.enigma.api.inventory.models.*;
+import com.enigma.api.inventory.services.CustomerService;
 import com.enigma.api.inventory.services.ItemService;
 import com.enigma.api.inventory.services.StockService;
 import com.enigma.api.inventory.services.TransactionService;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import static com.enigma.api.inventory.models.ResponseMessage.success;
@@ -27,6 +26,9 @@ public class TransactionController {
 
     @Autowired
     private ItemService itemService;
+
+    @Autowired
+    private CustomerService customerService;
 
     @Autowired
     private StockService stockService;
@@ -42,12 +44,10 @@ public class TransactionController {
         Transaction entity = modelMapper.map(model, Transaction.class);
 
         Item item = itemService.findById(model.getItemId());
-        List<Transaction> list = transactionService.findAll();
-        for (Transaction lisTrans : list) {
-            if (lisTrans.getItemId().getId().equals(model.getItemId()) && lisTrans.getName().equals(model.getName())) {
-                return ResponseMessage.error(403,"Cannot take double item");
-            }
-        }
+        Random random = new Random();
+        List<Customer> customerList = customerService.findAll();
+        Customer cus = customerList.get(random.nextInt(customerList.size()));
+        entity.setCustomerId(cus);
         Stock stock = stockService.findById(item.getId());
         stock.setQuantity(stock.getQuantity()-1);
         stockService.save(stock);
