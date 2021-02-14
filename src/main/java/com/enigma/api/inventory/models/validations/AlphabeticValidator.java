@@ -1,0 +1,17 @@
+package com.enigma.api.inventory.models.validations;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+public class    AlphabeticValidator implements ConstraintValidator<Alphabetic, String> {
+
+//    @Override
+//    public void initialize(Alphabetic constraintAnotation){
+//        ConstraintValidator.super.initialize(constraintAnotation);
+//    }
+
+    @Override
+    public boolean isValid(String t, ConstraintValidatorContext cvc){
+        return t != null ? t.matches("[A-Za-z]+") : true;
+    }
+}

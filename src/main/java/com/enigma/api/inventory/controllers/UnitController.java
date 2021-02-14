@@ -1,0 +1,100 @@
+package com.enigma.api.inventory.controllers;
+
+import com.enigma.api.inventory.entities.Unit;
+import com.enigma.api.inventory.exceptions.EntityNotFoundException;
+import com.enigma.api.inventory.models.PagedList;
+import com.enigma.api.inventory.models.ResponseMessage;
+import com.enigma.api.inventory.models.UnitModel;
+import com.enigma.api.inventory.models.UnitSearch;
+import com.enigma.api.inventory.services.UnitService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RequestMapping("/units")
+@RestController
+public class UnitController {
+
+    @Autowired
+    private UnitService service;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @PutMapping("/{id}")
+    public ResponseMessage<UnitModel> edit(@PathVariable Integer id, @RequestBody @Valid UnitModel model) {
+
+        Unit entity = service.findById(id);
+        if (entity == null) {
+            throw new EntityNotFoundException();
+        }
+        modelMapper.map(model, entity);
+        service.save(entity);
+
+        UnitModel data = modelMapper.map(entity, UnitModel.class);
+        return ResponseMessage.success(data);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseMessage<UnitModel> removeById(@PathVariable Integer id) {
+        Unit entity = service.removeById(id);
+        if (entity == null) {
+            throw new EntityNotFoundException();
+        }
+        ModelMapper modelMapper = new ModelMapper();
+        UnitModel data = modelMapper.map(entity, UnitModel.class);
+
+        return ResponseMessage.success(data);
+    }
+
+    @PostMapping
+    public ResponseMessage<UnitModel> add(@RequestBody @Valid UnitModel model) {
+        Unit entity = modelMapper.map(model, Unit.class);
+        entity = service.save(entity);
+        UnitModel data = modelMapper.map(entity, UnitModel.class);
+        return ResponseMessage.success(data);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseMessage<UnitModel> findById(@PathVariable Integer id) {
+        Unit entity = service.findById(id);
+        if (entity == null) {
+            throw new EntityNotFoundException();
+        }
+        ModelMapper modelMapper = new ModelMapper();
+        UnitModel data = modelMapper.map(entity, UnitModel.class);
+
+        return ResponseMessage.success(data);
+    }
+
+
+    @GetMapping
+    public ResponseMessage<PagedList<UnitModel>> findAll(
+            @Valid UnitSearch model
+    ) {
+        Unit search = modelMapper.map(model, Unit.class);
+
+        Page<Unit> entityPage = service.findAll(search, model.getPage(), model.getSize(), model.getSort());
+
+        List<Unit> entities = entityPage.toList();
+
+        List<UnitModel> models = entities.stream()
+                .map(e -> modelMapper.map(e, UnitModel.class))
+                .collect(Collectors.toList());
+
+        PagedList<UnitModel> data = new PagedList<>(models,
+                entityPage.getNumber(),
+                entityPage.getSize(),
+                entityPage.getTotalElements());
+
+        return ResponseMessage.success(data);
+    }
+
+}
