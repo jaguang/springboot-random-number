@@ -34,8 +34,8 @@ http://localhost:8080/register //Register user with full authority
 
 http://localhost:8080/authenticate //get token
 
-https://github.com/jaguang111/springboot-random-number/blob/master/image-20210215083014704.png?raw=true
+![Authenticated Image](image-20210215083014704.png)
 
 Copy token with Bearer
 
-https://github.com/jaguang111/springboot-random-number/blob/master/image-20210215083336696.png?raw=true
+![Input Token Image](image-20210215083336696.png)
