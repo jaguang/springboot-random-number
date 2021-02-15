@@ -30,7 +30,7 @@ JWT Documentation
 
 http://localhost:8080/register //Register user with full authority
 
-https://github.com/jaguang111/springboot-random-number/blob/master/image-20210215082932853.png?raw=true
+![Register Image](image-20210215082932853.png)
 
 http://localhost:8080/authenticate //get token
 
