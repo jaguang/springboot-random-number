@@ -1,12 +1,11 @@
 package com.enigma.api.inventory.controllers;
 
-import com.enigma.api.inventory.entities.Stock;
+import com.enigma.api.inventory.entities.Quantity;
 import com.enigma.api.inventory.entities.Item;
-import com.enigma.api.inventory.entities.StockSummary;
-import com.enigma.api.inventory.entities.Unit;
+import com.enigma.api.inventory.entities.QuantitySummary;
 import com.enigma.api.inventory.exceptions.EntityNotFoundException;
 import com.enigma.api.inventory.models.*;
-import com.enigma.api.inventory.services.StockService;
+import com.enigma.api.inventory.services.QuantityService;
 import com.enigma.api.inventory.services.ItemService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,37 +16,37 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequestMapping("/stocks")
+@RequestMapping("/quantity")
 @RestController
-public class StockController {
+public class QuantityController {
 
     @Autowired
-    private StockService service;
+    private QuantityService service;
 
     @Autowired
     private ItemService itemService;
 
     @Autowired
-    private StockService stockService;
+    private QuantityService quantityService;
 
     @Autowired
     private ModelMapper modelMapper;
 
     @PostMapping
-    public ResponseMessage<StockResponse> add(@RequestBody @Valid StockRequest model) {
-        Stock entity = modelMapper.map(model, Stock.class);
+    public ResponseMessage<QuantityResponse> add(@RequestBody @Valid QuantityRequest model) {
+        Quantity entity = modelMapper.map(model, Quantity.class);
 
         Item item = itemService.findById(model.getItemId());
         entity.setItem(item);
         entity.setTotalPrice(entity.getQuantity() * item.getPrice());
         entity = service.save(entity);
-        StockResponse data = modelMapper.map(entity, StockResponse.class);
+        QuantityResponse data = modelMapper.map(entity, QuantityResponse.class);
         return ResponseMessage.success(data);
     }
 
     @PutMapping("/{id}")
-    public ResponseMessage<StockResponse> edit(@PathVariable Integer id, @RequestBody @Valid StockRequest model) {
-        Stock entity = service.findById(id);
+    public ResponseMessage<QuantityResponse> edit(@PathVariable Integer id, @RequestBody @Valid QuantityRequest model) {
+        Quantity entity = service.findById(id);
         if (entity == null) {
             throw new EntityNotFoundException();
         }
@@ -59,50 +58,50 @@ public class StockController {
         entity.setTotalPrice(entity.getQuantity() * item.getPrice());
         service.save(entity);
 
-        StockResponse data = modelMapper.map(entity, StockResponse.class);
+        QuantityResponse data = modelMapper.map(entity, QuantityResponse.class);
 
         return ResponseMessage.success(data);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseMessage<StockResponse> removeById(@PathVariable Integer id) {
-        Stock entity = service.removeById(id);
+    public ResponseMessage<QuantityResponse> removeById(@PathVariable Integer id) {
+        Quantity entity = service.removeById(id);
         if (entity == null) {
             throw new EntityNotFoundException();
         }
         ModelMapper modelMapper = new ModelMapper();
-        StockResponse data = modelMapper.map(entity, StockResponse.class);
+        QuantityResponse data = modelMapper.map(entity, QuantityResponse.class);
 
         return ResponseMessage.success(data);
     }
 
     @GetMapping("/{id}")
-    public ResponseMessage<StockResponse> findById(@PathVariable Integer id) {
-        Stock entity = service.findById(id);
+    public ResponseMessage<QuantityResponse> findById(@PathVariable Integer id) {
+        Quantity entity = service.findById(id);
         if (entity == null) {
             throw new EntityNotFoundException();
         }
         ModelMapper modelMapper = new ModelMapper();
-        StockResponse data = modelMapper.map(entity, StockResponse.class);
+        QuantityResponse data = modelMapper.map(entity, QuantityResponse.class);
 
         return ResponseMessage.success(data);
     }
 
     @GetMapping
-    public ResponseMessage<PagedList<StockResponse>> findAll(
-            @Valid StockSearch model
+    public ResponseMessage<PagedList<QuantityResponse>> findAll(
+            @Valid QuantitySearch model
     ) {
-        Stock search = modelMapper.map(model, Stock.class);
+        Quantity search = modelMapper.map(model, Quantity.class);
 
-        Page<Stock> entityPage = service.findAll(search, model.getPage(), model.getSize(), model.getSort());
+        Page<Quantity> entityPage = service.findAll(search, model.getPage(), model.getSize(), model.getSort());
 
-        List<Stock> entities = entityPage.toList();
+        List<Quantity> entities = entityPage.toList();
 
-        List<StockResponse> models = entities.stream()
-                .map(e -> modelMapper.map(e, StockResponse.class))
+        List<QuantityResponse> models = entities.stream()
+                .map(e -> modelMapper.map(e, QuantityResponse.class))
                 .collect(Collectors.toList());
 
-        PagedList<StockResponse> data = new PagedList<>(models,
+        PagedList<QuantityResponse> data = new PagedList<>(models,
                 entityPage.getNumber(),
                 entityPage.getSize(),
                 entityPage.getTotalElements());
@@ -111,8 +110,8 @@ public class StockController {
     }
 
     @GetMapping("/summaries")
-    public ResponseMessage<List<StockSummary>> findAllSummaries(){
-        List<StockSummary> entityPage = service.findAllSummaries();
+    public ResponseMessage<List<QuantitySummary>> findAllSummaries(){
+        List<QuantitySummary> entityPage = service.findAllSummaries();
         return ResponseMessage.success(entityPage);
     }
 

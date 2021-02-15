@@ -20,7 +20,7 @@ public class Transaction {
 
     @ManyToOne
     @JoinColumn(name = "stock_id")
-    private Stock stockId;
+    private Quantity quantityId;
 
     public Integer getId() {
         return id;
@@ -46,12 +46,12 @@ public class Transaction {
         this.itemId = itemId;
     }
 
-    public Stock getStockId() {
-        return stockId;
+    public Quantity getStockId() {
+        return quantityId;
     }
 
-    public void setStockId(Stock stockId) {
-        this.stockId = stockId;
+    public void setStockId(Quantity quantityId) {
+        this.quantityId = quantityId;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class Transaction {
                 "id=" + id +
                 ", customerId=" + customerId +
                 ", itemId=" + itemId +
-                ", stockId=" + stockId +
+                ", stockId=" + quantityId +
                 '}';
     }
 }

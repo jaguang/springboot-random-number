@@ -20,7 +20,7 @@ public class ItemTest {
     private Item item;
 
     @Mock
-    private Stock stock;
+    private Quantity quantity;
 
     @Mock
     private Unit unit;
@@ -41,12 +41,12 @@ public class ItemTest {
 
     @Test
     public void getsetStockSummary() {
-        StockSummary expected = new StockSummary();
+        QuantitySummary expected = new QuantitySummary();
         expected.setItem(item);
         expected.setQuantity(10L);
         expected.setTotalPrice(100L);
 
-        StockSummary actual = new StockSummary();
+        QuantitySummary actual = new QuantitySummary();
         actual.setItem(item);
         actual.setQuantity(10L);
         actual.setTotalPrice(100L);
@@ -118,12 +118,12 @@ public class ItemTest {
     }
     @Test
     public void getsetStockElement() {
-        StockElement expected = new StockElement();
+        QuantityElement expected = new QuantityElement();
         expected.setItemId(1);
         expected.setQuantity(10);
         expected.setTotalPrice(100);
 
-        StockElement actual = new StockElement();
+        QuantityElement actual = new QuantityElement();
         actual.setItemId(1);
         actual.setQuantity(10);
         actual.setTotalPrice(100);
@@ -135,12 +135,12 @@ public class ItemTest {
 
     @Test
     public void getsetStockRequest() {
-        StockRequest expected = new StockRequest();
+        QuantityRequest expected = new QuantityRequest();
         expected.setItemId(1);
         expected.setQuantity(10);
         expected.setTotalPrice(100);
 
-        StockRequest actual = new StockRequest();
+        QuantityRequest actual = new QuantityRequest();
         actual.setItemId(1);
         actual.setQuantity(10);
         actual.setTotalPrice(100);
@@ -152,10 +152,10 @@ public class ItemTest {
 
     @Test
     public void getsetStockSearch() {
-        StockSearch expected = new StockSearch();
+        QuantitySearch expected = new QuantitySearch();
         expected.setQuantity("10");
 
-        StockSearch actual = new StockSearch();
+        QuantitySearch actual = new QuantitySearch();
         actual.setQuantity("10");
 
         assertEquals(expected.getQuantity(),actual.getQuantity());
@@ -178,14 +178,14 @@ public class ItemTest {
     @Test
     public void getsetTransaction() {
         Transaction expected = new Transaction();
-        expected.setStockId(stock);
+        expected.setStockId(quantity);
         expected.setId(1);
         expected.setItemId(item);
 
         Transaction actual = new Transaction();
         actual.setItemId(item);
         actual.setId(1);
-        actual.setStockId(stock);
+        actual.setStockId(quantity);
 
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getItemId(), actual.getItemId());

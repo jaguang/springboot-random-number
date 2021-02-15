@@ -1,14 +1,14 @@
 package com.enigma.api.inventory.controller;
 
-import com.enigma.api.inventory.controllers.StockController;
+import com.enigma.api.inventory.controllers.QuantityController;
 import com.enigma.api.inventory.entities.Item;
-import com.enigma.api.inventory.entities.Stock;
+import com.enigma.api.inventory.entities.Quantity;
 import com.enigma.api.inventory.models.ItemElement;
-import com.enigma.api.inventory.models.StockRequest;
-import com.enigma.api.inventory.models.StockResponse;
+import com.enigma.api.inventory.models.QuantityRequest;
+import com.enigma.api.inventory.models.QuantityResponse;
 import com.enigma.api.inventory.models.UnitSearch;
 import com.enigma.api.inventory.services.ItemService;
-import com.enigma.api.inventory.services.StockService;
+import com.enigma.api.inventory.services.QuantityService;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +32,14 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(StockController.class)
-public class StockControllerTest {
+@WebMvcTest(QuantityController.class)
+public class QuantityControllerTest {
 
     @Autowired
     private MockMvc mvc;
 
     @MockBean
-    private StockService service;
+    private QuantityService service;
 
     @MockBean
     private ModelMapper modelMapper;
@@ -59,21 +59,21 @@ public class StockControllerTest {
         itemElement.setId(itemEntity.getId());
         itemElement.setName(itemEntity.getName());
 
-        Stock entity = new Stock();
+        Quantity entity = new Quantity();
         entity.setId(1);
         entity.setQuantity(1000);
         entity.setItem(itemEntity);
         entity.setTotalPrice(10000);
 
-        StockResponse stockResponse = new StockResponse();
-        stockResponse.setId(entity.getId());
-        stockResponse.setQuantity(entity.getQuantity());
-        stockResponse.setItem(itemElement);
+        QuantityResponse quantityResponse = new QuantityResponse();
+        quantityResponse.setId(entity.getId());
+        quantityResponse.setQuantity(entity.getQuantity());
+        quantityResponse.setItem(itemElement);
 
-        when(modelMapper.map(any(StockRequest.class), any(Class.class))).thenReturn(entity);
+        when(modelMapper.map(any(QuantityRequest.class), any(Class.class))).thenReturn(entity);
         when(itemService.findById(any(Integer.class))).thenReturn(itemEntity);
         when(service.save(any())).thenReturn(entity);
-        when(modelMapper.map(any(Stock.class), any(Class.class))).thenReturn(stockResponse);
+        when(modelMapper.map(any(Quantity.class), any(Class.class))).thenReturn(quantityResponse);
 
         RequestBuilder request = post("/stocks")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -95,21 +95,21 @@ public class StockControllerTest {
         itemElement.setId(itemEntity.getId());
         itemElement.setName(itemEntity.getName());
 
-        Stock entity = new Stock();
+        Quantity entity = new Quantity();
         entity.setId(1);
         entity.setQuantity(1000);
         entity.setItem(itemEntity);
         entity.setTotalPrice(10000);
 
-        StockResponse stockResponse = new StockResponse();
-        stockResponse.setId(entity.getId());
-        stockResponse.setQuantity(entity.getQuantity());
-        stockResponse.setItem(itemElement);
+        QuantityResponse quantityResponse = new QuantityResponse();
+        quantityResponse.setId(entity.getId());
+        quantityResponse.setQuantity(entity.getQuantity());
+        quantityResponse.setItem(itemElement);
 
 
         when(service.findById(any(Integer.class))).thenReturn(entity);
         when(itemService.findById(any(Integer.class))).thenReturn(itemEntity);
-        when(modelMapper.map(any(Stock.class), any(Class.class))).thenReturn(stockResponse);
+        when(modelMapper.map(any(Quantity.class), any(Class.class))).thenReturn(quantityResponse);
 
         RequestBuilder request = put("/stocks/1")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -132,19 +132,19 @@ public class StockControllerTest {
         itemElement.setId(itemEntity.getId());
         itemElement.setName(itemEntity.getName());
 
-        Stock entity = new Stock();
+        Quantity entity = new Quantity();
         entity.setId(1);
         entity.setQuantity(1000);
         entity.setItem(itemEntity);
         entity.setTotalPrice(10000);
 
-        StockResponse stockResponse = new StockResponse();
-        stockResponse.setId(entity.getId());
-        stockResponse.setQuantity(entity.getQuantity());
-        stockResponse.setItem(itemElement);
+        QuantityResponse quantityResponse = new QuantityResponse();
+        quantityResponse.setId(entity.getId());
+        quantityResponse.setQuantity(entity.getQuantity());
+        quantityResponse.setItem(itemElement);
 
         when(service.removeById(any(Integer.class))).thenReturn(entity);
-        when(modelMapper.map(any(Stock.class), any(Class.class))).thenReturn(stockResponse);
+        when(modelMapper.map(any(Quantity.class), any(Class.class))).thenReturn(quantityResponse);
 
         RequestBuilder request = delete("/stocks/1")
                 .contentType(MediaType.APPLICATION_JSON);
@@ -166,20 +166,20 @@ public class StockControllerTest {
         itemElement.setId(itemEntity.getId());
         itemElement.setName(itemEntity.getName());
 
-        Stock entity = new Stock();
+        Quantity entity = new Quantity();
         entity.setId(1);
         entity.setQuantity(1000);
         entity.setItem(itemEntity);
         entity.setTotalPrice(10000);
 
-        StockResponse stockResponse = new StockResponse();
-        stockResponse.setId(entity.getId());
-        stockResponse.setQuantity(entity.getQuantity());
-        stockResponse.setItem(itemElement);
+        QuantityResponse quantityResponse = new QuantityResponse();
+        quantityResponse.setId(entity.getId());
+        quantityResponse.setQuantity(entity.getQuantity());
+        quantityResponse.setItem(itemElement);
 
 
         when(service.findById(any(Integer.class))).thenReturn(entity);
-        when(modelMapper.map(any(Stock.class), any(Class.class))).thenReturn(stockResponse);
+        when(modelMapper.map(any(Quantity.class), any(Class.class))).thenReturn(quantityResponse);
 
         RequestBuilder request = get("/stocks/1");
         mvc.perform(request)
@@ -191,15 +191,15 @@ public class StockControllerTest {
 
     @Test
     public void allShouldReturnArray() throws Exception {
-        Stock entity = new Stock();
+        Quantity entity = new Quantity();
         entity.setId(1);
         entity.setQuantity(10);
         entity.setTotalPrice(10000);
 
-        List<Stock> listStock = new ArrayList<>();
-        listStock.add(entity);
+        List<Quantity> listQuantity = new ArrayList<>();
+        listQuantity.add(entity);
 
-        Page<Stock> page = new PageImpl<>(listStock);
+        Page<Quantity> page = new PageImpl<>(listQuantity);
 
         when(modelMapper.map(any(UnitSearch.class), any(Class.class))).thenReturn(entity);
         when(service.findAll(any(), anyInt(), anyInt(), any())).thenReturn(page);

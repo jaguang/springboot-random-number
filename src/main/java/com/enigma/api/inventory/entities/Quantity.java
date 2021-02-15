@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Table
 @Entity
-public class Stock extends AbstractEntity<Integer> {
+public class Quantity extends AbstractEntity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,8 +57,8 @@ public class Stock extends AbstractEntity<Integer> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Stock stock = (Stock) o;
-        return Objects.equals(id, stock.id) && Objects.equals(item, stock.item) && Objects.equals(quantity, stock.quantity);
+        Quantity quantity = (Quantity) o;
+        return Objects.equals(id, quantity.id) && Objects.equals(item, quantity.item) && Objects.equals(this.quantity, quantity.quantity);
     }
 
     @Override

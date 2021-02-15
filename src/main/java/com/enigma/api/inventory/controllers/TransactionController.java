@@ -5,20 +5,17 @@ import com.enigma.api.inventory.exceptions.EntityNotFoundException;
 import com.enigma.api.inventory.models.*;
 import com.enigma.api.inventory.services.CustomerService;
 import com.enigma.api.inventory.services.ItemService;
-import com.enigma.api.inventory.services.StockService;
+import com.enigma.api.inventory.services.QuantityService;
 import com.enigma.api.inventory.services.TransactionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-
-import static com.enigma.api.inventory.models.ResponseMessage.success;
 
 @RequestMapping("/transactions")
 @RestController
@@ -31,7 +28,7 @@ public class TransactionController {
     private CustomerService customerService;
 
     @Autowired
-    private StockService stockService;
+    private QuantityService quantityService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -48,16 +45,16 @@ public class TransactionController {
         List<Customer> customerList = customerService.findAll();
         Customer cus = customerList.get(random.nextInt(customerList.size()));
         entity.setCustomerId(cus);
-        Stock stock = stockService.findById(item.getId());
-        System.out.println(stock.getQuantity());
-        if(stock.getQuantity()<=0){
+        Quantity quantity = quantityService.findById(item.getId());
+        System.out.println(quantity.getQuantity());
+        if(quantity.getQuantity()<=0){
             return ResponseMessage.error(403,"Stock Empty");
         } else {
-            stock.setQuantity(stock.getQuantity() - 1);
-            stockService.save(stock);
+            quantity.setQuantity(quantity.getQuantity() - 1);
+            quantityService.save(quantity);
         }
-        entity.setStockId(stock);
-        entity.setItemId(stock.getItem());
+        entity.setStockId(quantity);
+        entity.setItemId(quantity.getItem());
 
         entity = transactionService.save(entity);
         TransactionResponse data = modelMapper.map(entity, TransactionResponse.class);
@@ -93,9 +90,9 @@ public class TransactionController {
         if (entity == null) {
             throw new EntityNotFoundException();
         }
-        Stock stock = stockService.findById(entity.getStockId().getId());
-        stock.setQuantity(stock.getQuantity()+1);
-        stockService.save(stock);
+        Quantity quantity = quantityService.findById(entity.getStockId().getId());
+        quantity.setQuantity(quantity.getQuantity()+1);
+        quantityService.save(quantity);
         ModelMapper modelMapper = new ModelMapper();
         TransactionResponse data = modelMapper.map(entity, TransactionResponse.class);
 

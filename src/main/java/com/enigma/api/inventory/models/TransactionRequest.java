@@ -1,8 +1,5 @@
 package com.enigma.api.inventory.models;
 
-import com.enigma.api.inventory.entities.Item;
-import com.enigma.api.inventory.entities.Stock;
-
 
 public class TransactionRequest {
 

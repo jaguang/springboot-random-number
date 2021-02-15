@@ -1,18 +1,18 @@
 package com.enigma.api.inventory.entities;
 
-public class StockSummary {
+public class QuantitySummary {
 
     private Item item;
     private Long quantity;
     private Long totalPrice;
 
-    public StockSummary(Item item, Long quantity, Long totalPrice) {
+    public QuantitySummary(Item item, Long quantity, Long totalPrice) {
         this.item = item;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
     }
 
-    public StockSummary() {
+    public QuantitySummary() {
 
     }
 

@@ -1,9 +1,6 @@
 package com.enigma.api.inventory.controller;
 
-import com.enigma.api.inventory.controllers.ItemController;
 import com.enigma.api.inventory.controllers.TransactionController;
-import com.enigma.api.inventory.entities.Item;
-import com.enigma.api.inventory.entities.Stock;
 import com.enigma.api.inventory.entities.Transaction;
 import com.enigma.api.inventory.entities.Unit;
 import com.enigma.api.inventory.models.*;
@@ -42,7 +39,7 @@ public class ControllerTransactionTest {
         private ItemService itemService;
 
         @MockBean
-        private StockService stockService;
+        private QuantityService quantityService;
 
         @MockBean
         private TransactionService transactionService;

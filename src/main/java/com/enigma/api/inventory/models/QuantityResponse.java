@@ -1,6 +1,6 @@
 package com.enigma.api.inventory.models;
 
-public class StockResponse {
+public class QuantityResponse {
 
     private Integer id;
     private ItemElement item;

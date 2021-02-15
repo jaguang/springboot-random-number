@@ -1,8 +1,8 @@
 package com.enigma.api.inventory.repositories.impl;
 
-import com.enigma.api.inventory.entities.Stock;
-import com.enigma.api.inventory.entities.StockSummary;
-import com.enigma.api.inventory.repositories.StockSummaryRepository;
+import com.enigma.api.inventory.entities.Quantity;
+import com.enigma.api.inventory.entities.QuantitySummary;
+import com.enigma.api.inventory.repositories.QuantitySummaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
@@ -11,16 +11,16 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class StockSummaryRepositoryImpl implements StockSummaryRepository {
+public class QuantitySummaryRepositoryImpl implements QuantitySummaryRepository {
 
     @Autowired
     private EntityManager entityManager;
 
     @Override
-    public List<StockSummary> findAllSummaries() {
+    public List<QuantitySummary> findAllSummaries() {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<StockSummary> criteria = builder.createQuery(StockSummary.class);
-        Root<Stock> root = criteria.from(Stock.class);
+        CriteriaQuery<QuantitySummary> criteria = builder.createQuery(QuantitySummary.class);
+        Root<Quantity> root = criteria.from(Quantity.class);
 
         // urutan hasil multiselect samain dengna konstruktor entitas
         criteria.multiselect(root.get("item"), builder.sum(root.get("quantity")), builder.sum(root.get("totalPrice")))

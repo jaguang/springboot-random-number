@@ -1,6 +1,6 @@
 package com.enigma.api.inventory.models;
 
-public class StockSearch extends PageSearch {
+public class QuantitySearch extends PageSearch {
 
     private String quantity;
 

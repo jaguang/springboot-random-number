@@ -1,7 +1,7 @@
 package com.enigma.api.inventory.repositories;
 
-import com.enigma.api.inventory.entities.StockSummary;
-import com.enigma.api.inventory.repositories.impl.StockSummaryRepositoryImpl;
+import com.enigma.api.inventory.entities.QuantitySummary;
+import com.enigma.api.inventory.repositories.impl.QuantitySummaryRepositoryImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -13,12 +13,12 @@ import java.util.List;
 public class SummariesRepositoryTest {
 
     @Autowired
-    StockSummaryRepositoryImpl stockSummaryRepositoryss;
+    QuantitySummaryRepositoryImpl stockSummaryRepositoryss;
 
     @Test
     public void summaries() {
-        List<StockSummary> stockSummaryList = stockSummaryRepositoryss.findAllSummaries();
+        List<QuantitySummary> quantitySummaryList = stockSummaryRepositoryss.findAllSummaries();
 //
-        assertNotNull(stockSummaryList);
+        assertNotNull(quantitySummaryList);
     }
 }

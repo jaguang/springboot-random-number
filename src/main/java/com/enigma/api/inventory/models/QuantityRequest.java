@@ -3,7 +3,7 @@ package com.enigma.api.inventory.models;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class StockRequest {
+public class QuantityRequest {
 
     @NotNull
     private Integer quantity;
