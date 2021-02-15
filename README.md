@@ -30,12 +30,12 @@ JWT Documentation
 
 http://localhost:8080/register //Register user with full authority
 
-![image-20210215082932853](C:\Users\User\AppData\Roaming\Typora\typora-user-images\image-20210215082932853.png)
+https://github.com/jaguang111/springboot-random-number/blob/master/image-20210215082932853.png?raw=true
 
 http://localhost:8080/authenticate //get token
 
-![image-20210215083014704](C:\Users\User\AppData\Roaming\Typora\typora-user-images\image-20210215083014704.png)
+https://github.com/jaguang111/springboot-random-number/blob/master/image-20210215083014704.png?raw=true
 
 Copy token with Bearer
 
-![image-20210215083336696](C:\Users\User\AppData\Roaming\Typora\typora-user-images\image-20210215083336696.png)
+https://github.com/jaguang111/springboot-random-number/blob/master/image-20210215083336696.png?raw=true
